@@ -26,8 +26,8 @@ public class Solitaire {
 		return stash.get();
 	}
 	
-	public void putCardOnLine(Card card) {
-		board.putDown(card);
+	public Card putCardOnLine(Card card) {
+		return board.putDown(card);
 	}
 	
 	public boolean isGameFinished() {

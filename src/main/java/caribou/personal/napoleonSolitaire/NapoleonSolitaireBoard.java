@@ -7,8 +7,8 @@ public class NapoleonSolitaireBoard implements Board {
 	}
 	
 	@Override
-	public void putDown(Card card) {
-	
+	public Card putDown(Card card) {
+		return null;
 	}
 	
 	@Override

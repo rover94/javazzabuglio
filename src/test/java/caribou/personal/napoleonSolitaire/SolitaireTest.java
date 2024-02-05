@@ -37,6 +37,7 @@ class SolitaireTest {
 	@Test
 	void whenPuttingDownACard_youRequestTableToPutItDown() {
 		Card card = new Card();
+		when(board.putDown(card)).thenReturn(card);
 		
 		solitaire.putCardOnLine(card);
 		
