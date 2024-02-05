@@ -9,11 +9,12 @@ import static org.mockito.Mockito.*;
 class SolitaireTest {
 	private final Deck deck = mock(Deck.class);
 	private final Board board = mock(Board.class);
+	private final Stash stash = mock(Stash.class);
 	private Solitaire solitaire;
 	
 	@BeforeEach
 	void setUp() {
-		solitaire = new Solitaire(deck, board);
+		solitaire = new Solitaire(deck, board, stash);
 	}
 	
 	@Test
@@ -22,15 +23,15 @@ class SolitaireTest {
 		
 		verify(deck).shuffle();
 		verify(deck, times(52)).draw();
-		verify(board, times(4)).putToHiddenCards(any());
-		verify(board, times(48)).put(any());
+		verify(stash, times(4)).add(any());
+		verify(board, times(48)).putDownHiddenCard(any());
 	}
 	
 	@Test
-	void whenTheBoard_youCanDrawFourCardsAndTheFifthIsNull() {
+	void whenTheBoard_youCanDrawCardsAndRequestFromStash() {
 		solitaire.getHiddenCard();
 		
-		verify(board).getNextHiddenCard();
+		verify(stash).get();
 	}
 	
 	@Test

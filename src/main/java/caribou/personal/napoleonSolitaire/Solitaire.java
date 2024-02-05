@@ -1,30 +1,29 @@
 package caribou.personal.napoleonSolitaire;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Solitaire {
 	private final Deck deck;
 	private final Board board;
+	private final Stash stash;
 	
-	public Solitaire(Deck deck, Board board) {
+	public Solitaire(Deck deck, Board board, Stash stash) {
 		this.deck = deck;
 		this.board = board;
+		this.stash = stash;
 	}
 	
 	public void initGame() {
 		this.deck.shuffle();
 		
 		for(int i = 0; i < 4; i++) {
-			board.putToHiddenCards(this.deck.draw());
+			stash.add(this.deck.draw());
 		}
 		for(int i = 0; i < 48; i++) {
-			board.put(this.deck.draw());
+			board.putDownHiddenCard(this.deck.draw());
 		}
 	}
 	
 	public Card getHiddenCard() {
-		return board.getNextHiddenCard();
+		return stash.get();
 	}
 	
 	public void putCardOnLine(Card card) {
