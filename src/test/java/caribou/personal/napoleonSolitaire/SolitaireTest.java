@@ -1,6 +1,5 @@
 package caribou.personal.napoleonSolitaire;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,12 +8,12 @@ import static org.mockito.Mockito.*;
 
 class SolitaireTest {
 	private final Deck deck = mock(Deck.class);
+	private final Board board = mock(Board.class);
 	private Solitaire solitaire;
 	
 	@BeforeEach
 	void setUp() {
-		solitaire = new Solitaire(deck);
-		
+		solitaire = new Solitaire(deck, board);
 	}
 	
 	@Test
@@ -23,52 +22,42 @@ class SolitaireTest {
 		
 		verify(deck).shuffle();
 		verify(deck, times(52)).draw();
+		verify(board, times(4)).putToHiddenCards(any());
+		verify(board, times(48)).put(any());
 	}
 	
 	@Test
-	void whenTheBoardIsPopulated_youCanDrawUpTo4HiddenCards() {
-		Card card = new Card();
-		when(deck.draw()).thenReturn(card);
+	void whenTheBoard_youCanDrawFourCardsAndTheFifthIsNull() {
+		solitaire.getHiddenCard();
 		
-		solitaire.initGame();
-		
-		assertThat(solitaire.getHiddenCard()).isEqualTo(card);
-		assertThat(solitaire.getHiddenCard()).isEqualTo(card);
-		assertThat(solitaire.getHiddenCard()).isEqualTo(card);
-		assertThat(solitaire.getHiddenCard()).isEqualTo(card);
+		verify(board).getNextHiddenCard();
 	}
 	
 	@Test
-	void whenTheBoardIsPopulated_youCanDrawFourCardsAndTheFifthIsNull() {
+	void whenPuttingDownACard_youRequestTableToPutItDown() {
 		Card card = new Card();
-		when(deck.draw()).thenReturn(card);
 		
-		solitaire.initGame();
+		solitaire.putCardOnLine(card);
 		
-		assertThat(solitaire.getHiddenCard()).isEqualTo(card);
-		assertThat(solitaire.getHiddenCard()).isEqualTo(card);
-		assertThat(solitaire.getHiddenCard()).isEqualTo(card);
-		assertThat(solitaire.getHiddenCard()).isEqualTo(card);
-		assertThat(solitaire.getHiddenCard()).isEqualTo(null);
+		verify(board).putDown(card);
 	}
 	
 	@Test
-	void whenTheBoardIsPopulated_youCanPutACardOnAnEmptyLineYouReceiveTheCardThatIsONTable() {
-		Card card = new Card();
-		when(deck.draw()).thenReturn(card);
+	void whenVerifyingIfTheGameIsOver_youRequestItToTable() {
+		when(board.isGameFinished()).thenReturn(true);
 		
-		solitaire.initGame();
+		boolean gameFinished = solitaire.isGameFinished();
 		
-		solitaire.putCardOnLine(new Card(), 1);
+		assertThat(gameFinished).isEqualTo(true);
 	}
 	
 	@Test
-	void whenTheBoardIsPopulated_youCannotPutACardOfAWrongSuitOnAPopulatedLineAndYouReceiveBackTheSameOne() {
-		Card card = new Card();
-		when(deck.draw()).thenReturn(card);
+	void whenVerifyingIfTheGameIsWon_youRequestItToTable() {
+		when(board.isGameFinished()).thenReturn(true);
+		when(board.noMoreHiddenCards()).thenReturn(true);
 		
-		solitaire.initGame();
+		boolean gameFinished = solitaire.isGameWon();
 		
-		solitaire.putCardOnLine(new Card(), 1);
+		assertThat(gameFinished).isEqualTo(true);
 	}
 }

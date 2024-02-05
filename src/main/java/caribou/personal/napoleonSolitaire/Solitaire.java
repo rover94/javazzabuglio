@@ -5,37 +5,37 @@ import java.util.List;
 
 public class Solitaire {
 	private final Deck deck;
-	private List<Card> hidden;
-	private Table table;
+	private final Board board;
 	
-	public Solitaire(Deck deck) {
+	public Solitaire(Deck deck, Board board) {
 		this.deck = deck;
-		hidden = new ArrayList<>();
+		this.board = board;
 	}
 	
 	public void initGame() {
 		this.deck.shuffle();
 		
 		for(int i = 0; i < 4; i++) {
-			hidden.add(this.deck.draw());
+			board.putToHiddenCards(this.deck.draw());
 		}
 		for(int i = 0; i < 48; i++) {
-			Card card = this.deck.draw();
-			table.put(card);
+			board.put(this.deck.draw());
 		}
 	}
 	
 	public Card getHiddenCard() {
-		if (hidden.isEmpty()) {
-			return null;
-		}
-		
-		Card card = hidden.get(0);
-		hidden.remove(0);
-		return card;
+		return board.getNextHiddenCard();
 	}
 	
-	public Card putCardOnLine(Card card, Integer line) {
-		return null;
+	public void putCardOnLine(Card card) {
+		board.putDown(card);
+	}
+	
+	public boolean isGameFinished() {
+		return board.isGameFinished();
+	}
+	
+	public boolean isGameWon() {
+		return isGameFinished() && board.noMoreHiddenCards();
 	}
 }
