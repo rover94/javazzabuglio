@@ -1,5 +1,7 @@
 package caribou.personal.napoleonSolitaire;
 
+import caribou.personal.napoleonSolitaire.card.Card;
+
 public interface Board {
 	void putDownHiddenCard(Card card);
 	
@@ -7,5 +9,5 @@ public interface Board {
 	
 	boolean isGameFinished();
 	
-	boolean noMoreHiddenCards();
+	boolean gameWon();
 }

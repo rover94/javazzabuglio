@@ -1,8 +1,11 @@
 package caribou.personal.napoleonSolitaire;
 
+import caribou.personal.napoleonSolitaire.card.Card;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static caribou.personal.napoleonSolitaire.card.CardValue.ACE;
+import static caribou.personal.napoleonSolitaire.card.Suits.CLUB;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -36,10 +39,10 @@ class SolitaireTest {
 	
 	@Test
 	void whenPuttingDownACard_youRequestTableToPutItDown() {
-		Card card = new Card();
+		Card card = new Card(CLUB, ACE);
 		when(board.putDown(card)).thenReturn(card);
 		
-		solitaire.putCardOnLine(card);
+		solitaire.putDownCard(card);
 		
 		verify(board).putDown(card);
 	}
@@ -56,7 +59,7 @@ class SolitaireTest {
 	@Test
 	void whenVerifyingIfTheGameIsWon_youRequestItToTable() {
 		when(board.isGameFinished()).thenReturn(true);
-		when(board.noMoreHiddenCards()).thenReturn(true);
+		when(board.gameWon()).thenReturn(true);
 		
 		boolean gameFinished = solitaire.isGameWon();
 		

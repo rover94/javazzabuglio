@@ -1,5 +1,7 @@
 package caribou.personal.napoleonSolitaire;
 
+import caribou.personal.napoleonSolitaire.card.Card;
+
 public class Solitaire {
 	private final Deck deck;
 	private final Board board;
@@ -9,6 +11,12 @@ public class Solitaire {
 		this.deck = deck;
 		this.board = board;
 		this.stash = stash;
+	}
+	
+	public Solitaire() {
+		this.deck = new FrenchDeck();
+		this.board = new NapoleonSolitaireBoard();
+		this.stash = new HiddenStash();
 	}
 	
 	public void initGame() {
@@ -26,7 +34,7 @@ public class Solitaire {
 		return stash.get();
 	}
 	
-	public Card putCardOnLine(Card card) {
+	public Card putDownCard(Card card) {
 		return board.putDown(card);
 	}
 	
@@ -35,6 +43,6 @@ public class Solitaire {
 	}
 	
 	public boolean isGameWon() {
-		return isGameFinished() && board.noMoreHiddenCards();
+		return isGameFinished() && board.gameWon();
 	}
 }

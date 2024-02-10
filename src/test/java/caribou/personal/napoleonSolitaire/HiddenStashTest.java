@@ -1,17 +1,18 @@
 package caribou.personal.napoleonSolitaire;
 
-import org.assertj.core.api.Assertions;
+import caribou.personal.napoleonSolitaire.card.Card;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static caribou.personal.napoleonSolitaire.card.CardValue.ACE;
+import static caribou.personal.napoleonSolitaire.card.Suits.CLUB;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class HiddenStashTest {
 	private final HiddenStash hiddenStash = new HiddenStash();
 	
 	@Test
 	void youAddACardAndYouCanRetrieveIt() {
-		Card card = new Card();
+		Card card = new Card(CLUB, ACE);
 		
 		hiddenStash.add(card);
 		
@@ -25,7 +26,7 @@ class HiddenStashTest {
 	
 	@Test
 	void whenYouAddACardYouCanRetrieveItOnlyOnce() {
-		Card card = new Card();
+		Card card = new Card(CLUB, ACE);
 		
 		hiddenStash.add(card);
 		
