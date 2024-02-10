@@ -1,4 +1,4 @@
-package caribou.personal;
+package caribou.personal.napoleonSolitaire;
 
 import caribou.personal.napoleonSolitaire.Solitaire;
 import caribou.personal.napoleonSolitaire.card.Card;
