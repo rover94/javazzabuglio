@@ -1,6 +1,5 @@
 package caribou.personal.napoleonSolitaire;
 
-import caribou.personal.napoleonSolitaire.Solitaire;
 import caribou.personal.napoleonSolitaire.card.Card;
 
 import static java.util.Objects.isNull;

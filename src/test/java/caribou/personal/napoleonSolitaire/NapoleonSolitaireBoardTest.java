@@ -5,7 +5,8 @@ import caribou.personal.napoleonSolitaire.card.CardValue;
 import caribou.personal.napoleonSolitaire.card.Suits;
 import org.junit.jupiter.api.Test;
 
-import static caribou.personal.napoleonSolitaire.card.CardValue.*;
+import static caribou.personal.napoleonSolitaire.card.CardValue.ACE;
+import static caribou.personal.napoleonSolitaire.card.CardValue.TWO;
 import static caribou.personal.napoleonSolitaire.card.Suits.*;
 import static org.assertj.core.api.Assertions.assertThat;
 

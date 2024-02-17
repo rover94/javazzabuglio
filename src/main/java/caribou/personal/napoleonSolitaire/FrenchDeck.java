@@ -5,7 +5,6 @@ import caribou.personal.napoleonSolitaire.card.CardValue;
 import caribou.personal.napoleonSolitaire.card.Suits;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
