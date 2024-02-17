@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class CoordinateReaderTestResult {
 	private final CoordinateReader reader = new CoordinateReader();
 	private final List<String> input = List.of(
