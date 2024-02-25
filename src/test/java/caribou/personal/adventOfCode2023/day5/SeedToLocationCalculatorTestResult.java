@@ -29,7 +29,6 @@ class SeedToLocationCalculatorTestResult {
 	
 	@Test
 	void bigInputTest() {
-		
 		final List<ImmutablePair<Long, Long>> seeds = List.of(
 				new ImmutablePair<>(194657215L, 187012821L),
 				new ImmutablePair<>(1093203236L, 6077151L),
@@ -42,17 +41,12 @@ class SeedToLocationCalculatorTestResult {
 				new ImmutablePair<>(1005856673L, 850939L),
 				new ImmutablePair<>(839895010L, 162018909L)
 		);
-		SeedToLocationCalculatorV2 calculatorV2 = new SeedToLocationCalculatorV2(this.bigInput);
-		List<Long> collect = seeds.stream()
+		final SeedToLocationCalculatorV2 calculatorV2 = new SeedToLocationCalculatorV2(this.bigInput);
+		final List<Long> collect = seeds.stream()
 				.map(pair -> LongStream.range(pair.left, pair.left + pair.right).boxed()
 						.parallel().map(calculatorV2::getFinalLocationOf)
 						.mapToLong(Long::longValue).min().getAsLong())
 				.toList();
-//		OptionalLong min = seeds.stream()
-//				.map(pair -> LongStream.range(pair.left, pair.left + pair.right).boxed().collect(Collectors.toList()))
-//				.flatMap(List::stream)
-//				.parallel().map(seed -> new SeedToLocationCalculator().getFinalLocationOf(seed, this.bigInput))
-//				.mapToLong(Long::longValue).min();
 		System.out.println(collect.stream().mapToLong(Long::longValue).min());
 		
 	}

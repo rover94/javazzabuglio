@@ -5,14 +5,13 @@ import java.util.List;
 
 public class SeedToLocationParse implements Parser {
 	@Override
-	public List<List<Route>> parse(String maps) {
+	public List<List<Route>> parse(final String maps) {
 		final String[] split = maps.split(".*?map:");
 		return Arrays.stream(split).map(s -> Arrays.stream(s.split("\n"))
 						.filter(r -> !r.isBlank())
 						.map(this::getRoute).toList())
 				.filter(list -> !list.isEmpty())
 				.toList();
-		
 	}
 	
 	private Route getRoute(final String route) {
